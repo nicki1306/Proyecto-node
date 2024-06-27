@@ -19,7 +19,7 @@ const expressInstance = app.listen(config.PORT, async () => {
 
 app.set('view engine' );
 app.set('views', path.join(__dirname + '/views'));
-app.use('static', express.static(path.join(__dirname + '/public')));
+app.use('static', express.static(path.join(__dirname + '/dist')));
 app.use(cookieParser(config.SECRET));
 
 app.use(express.json());

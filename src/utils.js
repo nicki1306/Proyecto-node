@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 import config from './config.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { get } from 'http';
 import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
 
@@ -15,25 +14,32 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 
-class MongoSingleton {
-    constructor() {
-        if (!MongoSingleton.instance) {
-            MongoSingleton.instance = this;
-            this.connect();
-        }
-        return MongoSingleton.instance;
+export const generateToken = (user) => {
+
+    const token = jwt.sign({
+        _id: user._id,
+        name: user.name,
+        email: user.email
+    }, config.SECRET, {
+        
+        expiresIn: '24h'
+
+    });
+    return token;
     }
 
-    async connect() {
-        try {
-            await mongoose.connect(config.MONGO_URI);
-            console.log('Base de datos conectada');
-        } catch (error) {   
-            console.log(error);
-        }
-    }
-}
-export const mongoSingleton = new MongoSingleton();
+    
+
+
+
+
+
+
+
+
+
+
+
 export default __dirname;
 
 

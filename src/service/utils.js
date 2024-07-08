@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import config from './config.js';
+import config from '../config.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import bcrypt from 'bcryptjs';

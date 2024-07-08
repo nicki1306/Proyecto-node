@@ -10,6 +10,8 @@ commandLine
 commandLine.parse();
 const clOptions = commandLine.opts();
 
+dotenv.config({ path: clOptions.mode === 'setup' ? path.join(__dirname, '../.env.setup') : path.join(__dirname, '../.env') });
+
 const config = {
     APP_NAME: 'Proyecto Node',
     PORT: process.env.PORT || clOptions.port || 8080,

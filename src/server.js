@@ -1,14 +1,18 @@
 import express from 'express';
-import initSocket from './public/index/socket.io.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-dom/server';
 import config from '../src/config.js';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import session from 'express-session';
 import mongoose from 'mongoose';
-import MongoSingleton from './public/index/MongoSingleton.js';
+import passport from 'passport';
+
+import initSocket from './public/index/socket.io.js';
+import MongoSingleton from '../src/service/MongoSingleton.js';
 
 import productRouter from '../src/routes/ProductRoutes.js';
 import cartRouter from '../src/routes/CartRouter.js';

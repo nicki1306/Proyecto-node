@@ -1,21 +1,27 @@
-import Product from '../models/productModel.js';
+import React, { useState, useEffect } from 'react';
+import { getProducts } from '../api';
+import ProductItem from './ProductItem';
 
-export const getAllProducts = async (req, res) => {
-    try {
-        const products = await Product.find();
-        res.status(200).json(products);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+const ProductList = () => {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            const response = await getProducts();
+            setProducts(response.data);
+        };
+
+        fetchProducts();
+    }, []);
+
+    return (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {products.map(product => (
+                <ProductItem key={product._id} product={product} />
+            ))}
+        </div>
+    );
 };
 
-export const getProductById = async (req, res) => {
-    try {    
-        const product = await Product.findById(req.params.id);
-        res.status(200).json(product);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }    
-};
-
+export default ProductList;
 

@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllProducts } from '../controllers/productController.js';
+import { getAllProducts } from '../controllers/controller/ProductManager.js';
 import passport from 'passport';
 
 

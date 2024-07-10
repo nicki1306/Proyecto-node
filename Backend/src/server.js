@@ -3,21 +3,20 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-dom/server';
-import config from '../src/config.js';
+import config from './config.js';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import session from 'express-session';
 import mongoose from 'mongoose';
 import passport from 'passport';
 
-import initSocket from './public/index/socket.io.js';
-import MongoSingleton from '../src/service/MongoSingleton.js';
+import initSocket from '../../Frontend/src/public/index/socket.io.js';
+import MongoSingleton from './service/MongoSingleton.js';
 
-import productRouter from '../src/routes/ProductRoutes.js';
-import cartRouter from '../src/routes/CartRouter.js';
-
-
+import productRouter from './routes/ProductRoutes.js';
+import cartRouter from './routes/CartRouter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -26,7 +25,7 @@ const app = express();
 
 const expressInstance = app.listen(config.PORT, async () => {
     try {
-        
+
         MongoSingleton.getInstance();
         console.log(`Servidor escuchando en http://localhost:${config.PORT}`);
     } catch (error) {
@@ -42,7 +41,7 @@ app.use(cookieParser(config.SECRET));
 
 
 app.use(session({
-    secret: config.SECRET,  
+    secret: config.SECRET,
     resave: false,
     saveUninitialized: false
 }));
